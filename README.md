@@ -328,3 +328,115 @@ These examples demonstrate how Predicate, Func, and Action delegates can be used
 - `Action<T>` is used for void methods that perform an action.
 
 By using these built-in delegates, you can write more flexible and reusable code, often eliminating the need to define custom delegates for common scenarios.
+
+
+
+
+# Delegates in C#: Anonymous Functions and Lambda Expressions
+
+While C# is primarily an object-oriented language, it also supports functional programming concepts. Anonymous functions and lambda expressions are features that allow for more concise and flexible code, similar to JavaScript's approach to functions.
+
+## Anonymous Functions (C# 2.0, 2005)
+
+Anonymous functions allow you to create inline method definitions. This is useful when you want to create a simple method without formally defining it in a class.
+
+### Syntax:
+
+```csharp
+delegate (parameters) { method-body }
+```
+
+### Examples with Built-in Delegates:
+
+```csharp
+// Predicate
+Predicate<int> predicate = delegate (int number) { return number > 0; };
+
+// Func
+Func<int, string> func = delegate (int number) { return number.ToString(); };
+
+// Action
+Action<string> action = delegate (string name) { Console.WriteLine($"Hello {name}"); };
+
+// Usage
+Console.WriteLine(predicate(5));  // Output: True
+Console.WriteLine(func(10));      // Output: "10"
+action("Alice");                  // Output: Hello Alice
+```
+
+## Lambda Expressions (C# 3.0, 2007)
+
+Lambda expressions provide an even more concise way to write anonymous functions. They're often referred to as "fat arrow" functions, similar to JavaScript's arrow functions.
+
+### Syntax:
+
+For a single expression:
+```csharp
+(parameters) => expression
+```
+
+For multiple statements:
+```csharp
+(parameters) => { statements }
+```
+
+### Examples with Built-in Delegates:
+
+```csharp
+// Predicate
+Predicate<int> predicate = number => number > 0;
+
+// Func
+Func<int, string> func = number => number.ToString();
+
+// Action
+Action<string> action = name => Console.WriteLine($"Hello {name}");
+
+// Usage
+Console.WriteLine(predicate(5));  // Output: True
+Console.WriteLine(func(10));      // Output: "10"
+action("Bob");                    // Output: Hello Bob
+```
+
+## Advanced Lambda Examples
+
+### Multiple Parameters
+
+```csharp
+Func<int, int, int> add = (a, b) => a + b;
+Console.WriteLine(add(3, 5));  // Output: 8
+```
+
+### Type Inference
+
+C# can often infer the types of the parameters in a lambda expression:
+
+```csharp
+var multiply = (int x, int y) => x * y;
+Console.WriteLine(multiply(4, 5));  // Output: 20
+```
+
+### Expression Bodied Members (C# 6.0, 2015)
+
+This syntax can be used for methods, properties, and other members in classes:
+
+```csharp
+public class Calculator
+{
+    public static int Add(int a, int b) => a + b;
+    public int Multiply(int x, int y) => x * y;
+}
+```
+
+## Benefits of Lambda Expressions
+
+1. **Conciseness**: Lambdas allow you to write short, expressive code.
+2. **Readability**: For simple operations, lambdas can be more readable than full method definitions.
+3. **Flexibility**: Lambdas can be used inline, making code more compact and reducing the need for separate method definitions.
+4. **LINQ Integration**: Lambdas are extensively used with LINQ for querying data.
+
+## Conclusion
+
+Anonymous functions and lambda expressions in C# provide a way to write more concise and flexible code, similar to functional programming paradigms seen in languages like JavaScript. These features are particularly useful when working with delegates and LINQ, allowing for more expressive and readable code without the need for formal method definitions in every case.
+
+By using these features, C# developers can blend object-oriented and functional programming styles, choosing the most appropriate approach for each situation.
