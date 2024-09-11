@@ -215,3 +215,116 @@ Here's a quick comparison of the three built-in delegates we've covered:
 Func and Action delegates, along with Predicate, form a powerful trio of built-in delegates in C#. They provide a flexible and standardized way to work with methods of various signatures, reducing the need for custom delegate declarations and promoting more readable and maintainable code.
 
 By understanding and utilizing these built-in delegates, you can write more efficient and standardized C# code, leveraging the full power of delegate-based programming without the need for custom delegate declarations in most scenarios.
+
+
+# Built-in Delegates in C#: Practical Examples
+
+This guide provides practical examples of using the three main built-in delegates in C#: Predicate, Func, and Action. We'll use a common `TestFunctions` class to demonstrate each delegate type.
+
+## TestFunctions Class
+
+First, let's define a class with methods that we'll use throughout our examples:
+
+```csharp
+public class TestFunctions
+{
+    public static bool Test(int number)
+    {
+        return number > 0;
+    }
+
+    public static string Cast(int number)
+    {
+        return number.ToString();
+    }
+
+    public static void Print(string name)
+    {
+        Console.WriteLine($"Hello {name}");
+    }
+}
+```
+
+## Predicate<T> Example
+
+Predicate represents a method that takes one parameter and returns a boolean. It's often used for filtering or testing conditions.
+
+```csharp
+Predicate<int> predicate = TestFunctions.Test;
+
+// Using Invoke method
+bool result1 = predicate.Invoke(10);
+Console.WriteLine($"Is 10 > 0? {result1}");  // Output: Is 10 > 0? True
+
+// Using shorthand notation
+bool result2 = predicate(5);
+Console.WriteLine($"Is 5 > 0? {result2}");  // Output: Is 5 > 0? True
+
+bool result3 = predicate(-3);
+Console.WriteLine($"Is -3 > 0? {result3}");  // Output: Is -3 > 0? False
+```
+
+In this example, `Predicate<int>` represents a method that takes an integer and returns a boolean. It's used to test if a number is greater than zero.
+
+## Func<T, TResult> Example
+
+Func represents a method that takes between 0 and 16 input parameters and returns a value. The last type parameter always represents the return type.
+
+```csharp
+Func<int, string> func = TestFunctions.Cast;
+
+// Using Invoke method
+string result1 = func.Invoke(5);
+Console.WriteLine($"String representation of 5: {result1}");  // Output: String representation of 5: 5
+
+// Using shorthand notation
+string result2 = func(10);
+Console.WriteLine($"String representation of 10: {result2}");  // Output: String representation of 10: 10
+```
+
+In this example, `Func<int, string>` represents a method that takes an integer and returns a string. It's used to convert an integer to its string representation.
+
+## Action<T> Example
+
+Action represents a method that takes between 0 and 16 input parameters and doesn't return a value (void).
+
+```csharp
+Action<string> action = TestFunctions.Print;
+
+// Using Invoke method
+action.Invoke("Ahmed");  // Output: Hello Ahmed
+
+// Using shorthand notation
+action("Sarah");  // Output: Hello Sarah
+```
+
+In this example, `Action<string>` represents a method that takes a string parameter and doesn't return a value. It's used to print a greeting message.
+
+## Comparing Delegate Invocations
+
+For all three delegate types, you can use either the `Invoke()` method or the shorthand notation (treating the delegate like a method). The shorthand notation is more commonly used due to its conciseness.
+
+## Using Delegates with Lambda Expressions
+
+You can also use lambda expressions to create delegate instances inline:
+
+```csharp
+Predicate<int> isEven = x => x % 2 == 0;
+Console.WriteLine($"Is 4 even? {isEven(4)}");  // Output: Is 4 even? True
+
+Func<double, double> square = x => x * x;
+Console.WriteLine($"Square of 3.5: {square(3.5)}");  // Output: Square of 3.5: 12.25
+
+Action<int> printSquare = x => Console.WriteLine($"Square of {x} is {x * x}");
+printSquare(7);  // Output: Square of 7 is 49
+```
+
+## Conclusion
+
+These examples demonstrate how Predicate, Func, and Action delegates can be used in C#. Each serves a specific purpose:
+
+- `Predicate<T>` is used for methods that test a condition and return a boolean.
+- `Func<T, TResult>` is used for methods that take parameters and return a value.
+- `Action<T>` is used for void methods that perform an action.
+
+By using these built-in delegates, you can write more flexible and reusable code, often eliminating the need to define custom delegates for common scenarios.
