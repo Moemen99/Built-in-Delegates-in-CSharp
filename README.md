@@ -531,3 +531,95 @@ C# 10 expanded the use of `var` to work with delegates, particularly in lambda e
 ## Conclusion
 
 The evolution of the `var` keyword in C# demonstrates the language's commitment to balancing type safety with developer convenience. From its initial introduction for local variable type inference to its expanded use with delegates in C# 10, `var` has become a powerful tool for writing cleaner, more maintainable code while retaining C#'s strong typing benefits.
+
+
+
+
+
+# C# List Methods with Function Parameters
+
+This document outlines several C# List methods that accept functions (typically in the form of lambda expressions or predicates) as parameters. These methods are powerful tools for working with collections in a more expressive and functional way.
+
+## List<T> Used in Examples
+
+```csharp
+List<int> Numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+```
+
+## FindAll
+
+Returns a new list containing all elements that match the specified predicate.
+
+```csharp
+List<int> OddNumbers = Numbers.FindAll(N => N % 2 == 1);
+// Result: [1, 3, 5, 7, 9]
+```
+
+## Find
+
+Returns the first element that matches the specified predicate.
+
+```csharp
+int FirstOddNumber = Numbers.Find(N => N % 2 == 1);
+// Result: 1
+```
+
+## FindLast
+
+Returns the last element that matches the specified predicate.
+
+```csharp
+int LastOddNumber = Numbers.FindLast(N => N % 2 == 1);
+// Result: 9
+```
+
+## Exists
+
+Determines whether any element in the list satisfies the specified predicate.
+
+```csharp
+bool HasOddNumbers = Numbers.Exists(N => N % 2 == 1);
+// Result: true
+```
+
+## TrueForAll
+
+Determines whether every element in the list satisfies the specified predicate.
+
+```csharp
+bool AllOdd = Numbers.TrueForAll(N => N % 2 == 1);
+// Result: false
+```
+
+## ForEach
+
+Performs the specified action on each element of the list.
+
+```csharp
+Numbers.ForEach(N => Console.WriteLine(N));
+// Prints each number in the list
+```
+
+## RemoveAll
+
+Removes all elements that match the specified predicate.
+
+```csharp
+int removedCount = Numbers.RemoveAll(X => X % 2 == 0);
+// Removes all even numbers from the list
+// removedCount will be 5 (2, 4, 6, 8, 10 removed)
+```
+
+## Note on Predicates
+
+Many of these methods take a predicate as a parameter. A predicate is a function that takes an input and returns a boolean value. In C#, it's often represented by the `Predicate<T>` delegate, which is defined as:
+
+```csharp
+public delegate bool Predicate<in T>(T obj);
+```
+
+This allows you to pass in a function (often as a lambda expression) that determines whether an element satisfies a condition.
+
+## Conclusion
+
+These methods demonstrate the power of functional programming concepts in C#. By using predicates and actions, you can write more expressive and concise code when working with collections.
